@@ -1,0 +1,82 @@
+<div data-ng-include="'resources/html/partial/navbar.html'"></div>
+<div class="container-fluid">
+	<div class="row">
+<!-- 		<div class="col-sm-2" data-ng-include="'resources/html/partial/menu.html'"></div> -->
+		<div class="col-sm-1"></div>
+		<div class="col-sm-8">
+			<h1 id="titoloAzienda">Azienda: {{azienda.ragioneSociale}}</h1>
+			<div id="boxErrori" class="alert alert-warning collapse"></div>
+			<div id="boxNotifiche" class="alert alert-info collapse"></div>
+			
+			<div class="panel panel-primary">
+			<div class="panel-heading">Informazioni base</div>
+			<div class="panel-body">
+			<form name="datiAzienda" novalidate>
+				<div id="form" class="container-fluid collapse in">
+					<div class="row form-group">
+						<div class="col-sm-5 form-group">
+							<label for="ragioneSociale">Ragione sociale:</label> <input class="form-control" type="text" name="ragioneSociale" data-ng-model="azienda.ragioneSociale" />
+						</div>
+						<div class="col-sm-1"></div>
+						<div class="col-sm-5 form-group">
+							<label for="partitaIva">P.Iva / C.F. :</label> <input class="form-control" type="text" name="partitaIva" data-ng-model="azienda.partitaIva" />
+						</div>
+						<div class="col-sm-1"></div>
+					</div>
+					<div class="row form-group">
+						<div class="col-sm-5 form-group">
+							<label for="sitoWeb">Sito Web:</label> <input class="form-control" type="text" name="sitoWeb" data-ng-model="azienda.sitoWeb" />
+						</div>
+						<div class="col-sm-1"></div>
+						<div class="col-sm-5 form-group">
+							<label for="email">Email :</label> <input class="form-control" type="text" name="email" data-ng-model="azienda.email" />
+						</div>
+						<div class="col-sm-1"></div>
+					</div>
+					<div class="row form-group">
+						<div class="col-sm-5 form-group">
+							<label for="telefono">Telefono:</label> <input class="form-control" type="text" name="telefono" data-ng-model="azienda.telefono" />
+						</div>
+						<div class="col-sm-1"></div>
+						<div class="col-sm-5 form-group">
+							<label for="inTrattiva">In trattiva: </label> <input type="checkbox" name="inTrattiva" value="inTrattiva" data-ng-model="azienda.inTrattiva" />
+						</div>
+						<div class="col-sm-1"></div>
+					</div>
+					<div class="row form-group">
+						<div class="col-sm-5 form-group">
+							<label for="tipoLogistica">Logistica:</label> <select class="form-control" name="tipoLogistica" id="tipoLogistica" data-ng-model="azienda.tipoLogistica">
+								<option value="INTERNA">Interna</option>
+								<option value="ESTERNA">Esterna</option>
+								<option value="ENTRAMBE">Entrambe</option>
+								<option value="NESSUNA">Nessuna</option>
+							</select>
+						</div>
+						<div class="col-sm-1"></div>
+						<div class="col-sm-5 form-group">
+							<label for="valutazione">Valutazione:</label> <select class="form-control" name="valutazione" id="valutazione" data-ng-model="azienda.valutazione">
+								<option value="DA_VALUTARE">Da Valutare</option>
+								<option value="AFFIDABILE">Affidabile</option>
+								<option value="NON_AFFIDABILE">Non Affidabile</option>
+							</select>
+						</div>
+						<div class="col-sm-1"></div>
+					</div>
+				</div>
+				<button id="bottoneCaricamento" title="Salva" name="Salva" type="button" class="btn bottone sinistra" data-ng-click="salva()">Salva</button>
+			</form>
+			</div>
+			<br>
+			</div>
+		    
+		    <div data-ng-include="'resources/html/partial/panelAziendaContatti.html'"></div>
+		    
+		    <div data-ng-include="'resources/html/partial/panelAziendaBrand.html'"></div>
+		    
+		    <div data-ng-include="'resources/html/partial/panelAziendaNote.html'"></div>
+			
+			<button type="button" class="btn bottone sinistra" data-ng-click="tornaIndietro()">Indietro</button>
+		</div>
+		<div class="col-sm-3"></div>
+	</div>
+</div>

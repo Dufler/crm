@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html data-ng-app="ltcApp">
+<head>
+	<meta charset="ISO-8859-1">
+	<link rel="shortcut icon" href="resources/images/ltc_logo_16x16.png" />
+	<title>LTC - CRM</title>
+	<!-- Fogli di stile -->
+<!-- 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+	<link rel="stylesheet" href="resources/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="resources/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="resources/css/style.css" />
+	<link rel="stylesheet" href="resources/css/raleway.css">
+	<!-- Javascript -->
+<!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+<!-- 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.bundle.min.js"></script> -->
+<!--   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+<!-- 	<script src="resources/js/jquerypack.min.js"></script> -->
+	<script src="resources/js/jquery.min.js"></script>
+	<script src="resources/js/bootstrap.min.js"></script>
+	<script src="resources/js/angular.min.js"></script>
+    <script src="resources/js/angular-route.js"></script>
+    <script src="resources/js/angular-table.min.js"></script>
+    <script src="resources/js/angular-tabs.min.js"></script>
+    <script src="resources/js/function.js"></script>
+    <script src="resources/js/script.js"></script>
+    <script src="resources/js/controllerBase.js"></script>
+    <script src="resources/js/controllerAzienda.js"></script>
+    <script src="resources/js/controllerContatto.js"></script>
+    <script src="resources/js/controllerBrand.js"></script>
+    <script src="resources/js/controllerGadget.js"></script>
+</head>
+<body data-ng-controller="mainController">
+	<div data-ng-include="'resources/html/partial/navbar.html'" data-ng-show="loginEffettuato()" ></div> <!-- data-ng-show="loginRiuscito" -->
+	<div class="header" data-ng-include="'resources/html/partial/header.html'" data-ng-show="!loginEffettuato()"></div> <!-- data-ng-show="!loginRiuscito" -->
+	<div id="main" class="main grigiochiaro"><div data-ng-view></div></div>
+	<div class="footer grigioscuro" data-ng-include="'resources/html/partial/footer.html'"></div>	
+</body>
+</html>

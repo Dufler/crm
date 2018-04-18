@@ -1,0 +1,95 @@
+<div id="boxInfoAssociazioneAC" class="alert alert-info collapse"></div>
+<div class="panel panel-default" data-ng-controller="pannelloAziendaContattiController">
+	<div id="headerPannelloContatti" title="Contatti" class="panel-heading" data-ng-click="caricaContatti()">Contatti</div>
+	<div id="pannelloAziendaContatti" class="panel-body collapse">
+		<!-- Trigger the modal with a button -->
+		<button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#modaleAggiungiContatto">Aggiungi Contatto</button>
+		<br />
+		<!-- Modal -->
+		<div id="modaleAggiungiContatto" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Aggiungi un contatto alla azienda</h4>
+					</div>
+					<div class="modal-body">
+						<p>Cerca il contatto.</p>
+						<form name="ricerca" novalidate>
+							<div class="input-group">
+								<input type="text" class="form-control" name="testo" data-ng-model="testo" placeholder="Cerca...">
+								<div class="input-group-btn">
+									<button id="bottoneCaricamento" title="Cerca" name="Cerca" class="btn btn-default" type="submit" data-ng-click="cerca()">
+										<i class="glyphicon glyphicon-search"></i>
+									</button>
+								</div>
+							</div>
+						</form>
+						<br />
+						<div id="boxErroriAssociazioneAC" class="alert alert-warning collapse"></div>
+						<table class="lista" data-at-table data-at-paginated data-at-list="contatti" data-at-config="configurazioneTabella">
+							<thead>
+								<tr class="lista">
+									<th class="lista" data-at-attribute="nome">Nome</th>
+									<th class="lista" data-at-attribute="cognome">Cognome</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="lista" data-ng-click="associa(item)">
+									<td class="lista" data-at-attribute="nome" data-at-implicit data-at-sortable></td>
+									<td class="lista" data-at-attribute="cognome" data-at-implicit data-at-sortable></td>
+								</tr>
+							</tbody>
+						</table>
+						<at-pagination data-at-list="contatti" data-at-config="configurazioneTabella"></at-pagination>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Chiudi</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Modale conferma eliminazione -->
+		<div id="modaleConfermaEliminazioneAssociazioneContatto" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Conferma eliminazione associazione</h4>
+					</div>
+					<div class="modal-body">
+						<p>Sei sicuro di voler eliminare l'associazione tra l'azienda e il contatto?</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal" data-ng-click="eliminaAssociazione()">Si</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br />
+		<table class="lista" data-at-table data-at-paginated data-at-list="aziendaContatti" data-at-config="configurazioneTabella">
+			<thead>
+				<tr class="lista">
+					<th class="lista" data-at-attribute="nome">Nome</th>
+					<th class="lista" data-at-attribute="cognome">Cognome</th>
+					<th class="lista" data-at-attribute="telefono">Telefono</th>
+					<th class="lista" data-at-attribute="email">Email</th>
+					<th class="lista" >Elimina</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="lista">
+					<td class="lista" data-ng-click="visualizzaDettaglio(item, 'contatto', '/schedaContatto')" data-at-attribute="nome" data-at-implicit data-at-sortable></td>
+					<td class="lista" data-ng-click="visualizzaDettaglio(item, 'contatto', '/schedaContatto')" data-at-attribute="cognome" data-at-implicit data-at-sortable></td>
+					<td class="lista" data-ng-click="visualizzaDettaglio(item, 'contatto', '/schedaContatto')" data-at-attribute="telefono" data-at-implicit data-at-sortable></td>
+					<td class="lista" data-ng-click="visualizzaDettaglio(item, 'contatto', '/schedaContatto')" data-at-attribute="email" data-at-implicit data-at-sortable></td>
+					<td class="lista"><span data-ng-click="mostraConfermaEliminazione(item)" class="glyphicon glyphicon-trash"></span></td>
+				</tr>
+			</tbody>
+		</table>
+		<at-pagination data-at-list="aziendaContatti" data-at-config="configurazioneTabella"></at-pagination>
+	</div>
+</div>

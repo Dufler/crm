@@ -1,0 +1,47 @@
+<div data-ng-include="'resources/html/partial/navbar.html'"></div>
+<div class="container-fluid">
+	<div class="row">
+<!-- 		<div class="col-sm-2" data-ng-include="'resources/html/partial/menu.html'"></div> -->
+		<div class="col-sm-1"></div>
+		<div class="col-sm-8">
+			<h1>Cerca Contatti</h1>
+			<p>Per visualizzare l&#39;elenco dei contatti clicca il pulsante Cerca.</p>
+			<div id="boxErrori" class="alert alert-warning collapse"></div>
+			<form name="ricerca" novalidate>
+				<div id="formCercaContatto" class="container-fluid collapse in">
+					<div class="row form-group">
+						<div class="col-sm-5 form-group">
+							<label for="testo">Nome:</label> <input class="form-control" type="text" placeholder="Cerca..." name="testo" data-ng-model="testo" />
+						</div>
+					</div>
+				</div>
+				<button id="bottoneCaricamento" title="Cerca" name="Cerca" type="submit" class="btn bottone sinistra" data-ng-click="cerca()">Cerca</button>
+				<br />
+			</form>
+			<br />
+			<div id="boxNotificheRicercaContatto" class="alert alert-info collapse"></div>
+			<br />
+			<table class="lista" data-at-table data-at-paginated data-at-list="contatti" data-at-config="configurazioneTabella">
+				<thead>
+					<tr class="lista">
+						<th class="lista" data-at-attribute="nome">Nome</th>
+						<th class="lista" data-at-attribute="cognome">Cognome</th>
+						<th class="lista" data-at-attribute="telefono">Telefono</th>
+						<th class="lista" data-at-attribute="email">Email</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="lista" data-ng-click="visualizzaDettaglio(item, 'contatto', '/schedaContatto')">
+						<td class="lista" data-at-attribute="nome" data-at-implicit data-at-sortable></td>
+						<td class="lista" data-at-attribute="cognome" data-at-implicit data-at-sortable></td>
+						<td class="lista" data-at-attribute="telefono" data-at-implicit data-at-sortable></td>
+						<td class="lista" data-at-attribute="email" data-at-implicit data-at-sortable></td>
+					</tr>
+				</tbody>
+			</table>
+			<at-pagination data-at-list="contatti" data-at-config="configurazioneTabella"></at-pagination>
+			<br /> <br />
+		</div>
+		<div class="col-sm-3"></div>
+	</div>
+</div>

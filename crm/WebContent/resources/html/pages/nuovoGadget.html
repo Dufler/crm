@@ -1,0 +1,30 @@
+<div data-ng-include="'resources/html/partial/navbar.html'"></div>
+<div class="container-fluid">
+	<div class="row">
+<!-- 		<div class="col-sm-2" data-ng-include="'resources/html/partial/menu.html'"></div> -->
+		<div class="col-sm-1"></div>
+		<div class="col-sm-8">
+			<h1>Nuovo Gadget</h1>
+			<p>Inserisci le informazioni richieste e clicca il pulsante Salva.</p>
+			<form name="inseriscigadget" novalidate>
+				<div id="boxErrori" class="alert alert-warning collapse"></div>
+				<div id="datiGadget" class="container-fluid collapse in">
+					<div class="row form-group">
+						<div class="col-sm-5 form-group">
+							<label for="nome">Nome:</label> <input class="form-control" type="text" name="nome" data-ng-model="nome" />
+						</div>
+						<div class="col-sm-7"></div>
+					</div>
+					<div class="row form-group">
+						<div class="col-sm-11 form-group">
+							<label for="descrizione">Descrizione:</label> <textarea  class="form-control" maxlength="250" form="inseriscigadget" rows="4" cols="50" name="descrizione" data-ng-model="descrizione"> </textarea>
+						</div>
+						<div class="col-sm-1"></div>
+					</div>
+				</div>
+				<button id="bottoneCaricamento" title="Salva" name="Salva" type="button" class="btn bottone sinistra" data-ng-click="salva()">Salva</button>
+			</form>
+		</div>
+		<div class="col-sm-3"></div>
+	</div>
+</div>

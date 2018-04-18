@@ -1,0 +1,128 @@
+<div class="panel panel-menultc" data-ng-controller="menuController">
+	<div class="panel-heading"><strong>ATTIVIT&Agrave;</strong></div>
+	<div class="panel-body">
+	
+		<div class="dropdown">
+			<button class="btn btn-primary dropdown-toggle col-sm-12" type="button" data-toggle="dropdown">Aziende <span class="caret"></span></button>
+			<ul class="dropdown-menu">
+				<li><a href="#nuovaAzienda">Nuova Azienda</a></li>
+				<li><a href="#cercaAzienda">Ricerca</a></li>
+			</ul>
+		</div>
+		
+		<div class="dropdown">
+			<button class="btn btn-primary dropdown-toggle col-sm-12" type="button" data-toggle="dropdown">Contatti <span class="caret"></span></button>
+			<ul class="dropdown-menu">
+				<li><a href="#nuovoContatto">Nuovo Contatto</a></li>
+				<li><a href="#cercaContatto">Ricerca</a></li>
+			</ul>
+		</div>
+		
+		<div class="dropdown">
+			<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Brand <span class="caret"></span></button>
+			<ul class="dropdown-menu">
+				<li><a href="#nuovoBrand">Nuovo Brand</a></li>
+				<li><a href="#cercaBrand">Ricerca</a></li>
+			</ul>
+		</div>
+		
+		<div class="dropdown">
+			<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Gadget <span class="caret"></span></button>
+			<ul class="dropdown-menu">
+				<li><a href="#nuovoGadget">Nuovo Gadget</a></li>
+				<li><a href="#cercaGadget">Ricerca</a></li>
+			</ul>
+		</div>
+		
+		<a href="#preferenze"><button class="btn btn-primary col-sm-12" type="button">Preferenze</button></a>
+		<br />
+		<br />
+		<button class="btn bottone destra" data-ng-click="deAutentica()">Logout</button>
+	</div>
+</div>
+
+<!-- <div class="panel panel-menultc" data-ng-controller="menuController"> -->
+<!-- 	<div class="panel-heading"><strong>ATTIVIT&Agrave;</strong></div> -->
+<!-- 	<div class="panel-body"> -->
+<!-- 		<ul> -->
+<!-- 		<li><button data-target="#menuaziende" data-toggle="collapse" class="btn btn-link menulink">Aziende</button></li> -->
+<!-- 		<li> -->
+<!-- 		<ul id="menuaziende" class="collapse"> -->
+<!-- 			<li><a class="menulink" href="#nuovaAzienda">Nuova Azienda</a></li> -->
+<!-- 			<li><a class="menulink" href="#cercaAzienda">Ricerca</a></li> -->
+<!-- 		</ul> -->
+<!-- 		</li> -->
+		
+<!-- 		<li><button data-target="#menucontatti" data-toggle="collapse" class="btn btn-link menulink">Contatti</button></li> -->
+<!-- 		<li> -->
+<!-- 		<ul id="menucontatti" class="collapse"> -->
+<!-- 			<li><a class="menulink" href="#nuovoContatto">Nuovo Contatto</a></li> -->
+<!-- 			<li><a class="menulink" href="#cercaContatto">Ricerca</a></li> -->
+<!-- 		</ul> -->
+<!-- 		</li> -->
+		
+<!-- 		<li><button data-target="#menubrand" data-toggle="collapse" class="btn btn-link menulink">Brand</button></li> -->
+<!-- 		<li> -->
+<!-- 		<ul id="menubrand" class="collapse"> -->
+<!-- 			<li><a class="menulink" href="#nuovoBrand">Nuovo Brand</a></li> -->
+<!-- 			<li><a class="menulink" href="#cercaBrand">Ricerca</a></li> -->
+<!-- 		</ul> -->
+<!-- 		</li> -->
+		
+<!-- 		<li><button data-target="#menugadget" data-toggle="collapse" class="btn btn-link menulink">Gadget</button></li> -->
+<!-- 		<li> -->
+<!-- 		<ul id="menugadget" class="collapse"> -->
+<!-- 			<li><a class="menulink" href="#nuovoGadget">Nuovo Gadget</a></li> -->
+<!-- 			<li><a class="menulink" href="#cercaGadget">Ricerca</a></li> -->
+<!-- 		</ul> -->
+<!-- 		</li> -->
+		
+<!-- 		<li><a class="menulink" href="#preferenze">Preferenze</a></li> -->
+<!-- 		</ul> -->
+<!-- 		<button class="btn bottone destra" data-ng-click="deAutentica()">Logout</button> -->
+<!-- 	</div> -->
+<!-- </div> -->
+
+
+<!-- Versione originale -->
+
+<!-- <div class="well grigio menu sinistra" data-ng-controller="menuController"> -->
+<!-- 	<h1 class="menuheading">ATTIVIT&Agrave;</h1> -->
+<!-- 	<ul> -->
+	
+<!-- 	<li><button data-target="#menuaziende" data-toggle="collapse" class="btn btn-link menulink">Aziende</button></li> -->
+<!-- 	<li> -->
+<!-- 	<ul id="menuaziende" class="collapse"> -->
+<!-- 		<li><a class="menulink" href="#nuovaAzienda">Nuova Azienda</a></li> -->
+<!-- 		<li><a class="menulink" href="#cercaAzienda">Ricerca</a></li> -->
+<!-- 	</ul> -->
+<!-- 	</li> -->
+	
+<!-- 	<li><button data-target="#menucontatti" data-toggle="collapse" class="btn btn-link menulink">Contatti</button></li> -->
+<!-- 	<li> -->
+<!-- 	<ul id="menucontatti" class="collapse"> -->
+<!-- 		<li><a class="menulink" href="#nuovoContatto">Nuovo Contatto</a></li> -->
+<!-- 		<li><a class="menulink" href="#cercaContatto">Ricerca</a></li> -->
+<!-- 	</ul> -->
+<!-- 	</li> -->
+	
+<!-- 	<li><button data-target="#menubrand" data-toggle="collapse" class="btn btn-link menulink">Brand</button></li> -->
+<!-- 	<li> -->
+<!-- 	<ul id="menubrand" class="collapse"> -->
+<!-- 		<li><a class="menulink" href="#nuovoBrand">Nuovo Brand</a></li> -->
+<!-- 		<li><a class="menulink" href="#cercaBrand">Ricerca</a></li> -->
+<!-- 	</ul> -->
+<!-- 	</li> -->
+	
+<!-- 	<li><button data-target="#menugadget" data-toggle="collapse" class="btn btn-link menulink">Gadget</button></li> -->
+<!-- 	<li> -->
+<!-- 	<ul id="menugadget" class="collapse"> -->
+<!-- 		<li><a class="menulink" href="#nuovoGadget">Nuovo Gadget</a></li> -->
+<!-- 		<li><a class="menulink" href="#cercaGadget">Ricerca</a></li> -->
+<!-- 	</ul> -->
+<!-- 	</li> -->
+	
+<!-- 	<li><a class="menulink" href="#preferenze">Preferenze</a></li> -->
+<!-- 	</ul> -->
+<!-- 	<button class="btn bottone destra" data-ng-click="deAutentica()">Logout</button> -->
+<!-- </div> -->

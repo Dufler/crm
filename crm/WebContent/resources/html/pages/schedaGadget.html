@@ -1,0 +1,41 @@
+<div data-ng-include="'resources/html/partial/navbar.html'"></div>
+<div class="container-fluid">
+	<div class="row">
+<!-- 		<div class="col-sm-2" data-ng-include="'resources/html/partial/menu.html'"></div> -->
+		<div class="col-sm-1"></div>
+		<div class="col-sm-8">
+			<h1>Gadget: {{gadget.nome}}</h1>
+			<div id="boxErrori" class="alert alert-warning collapse"></div>
+			<div id="boxNotifiche" class="alert alert-info collapse"></div>
+			
+			<div class="panel panel-primary">
+			<div class="panel-heading">Informazioni base</div>
+			<div class="panel-body">
+			<form name="datiGadget" novalidate>
+				<div id="form" class="container-fluid collapse in">
+					<div class="row form-group">
+						<div class="col-sm-5 form-group">
+							<label for="nome">Nome:</label> <input class="form-control" type="text" name="nome" data-ng-model="gadget.nome" />
+						</div>
+						<div class="col-sm-7"></div>
+					</div>
+					<div class="row form-group">
+						<div class="col-sm-11 form-group">
+							<label for="descrizione">Descrizione:</label> <textarea  class="form-control" maxlength="250" form="inseriscigadget" rows="4" cols="50" name="descrizione" data-ng-model="gadget.descrizione"> </textarea>
+						</div>
+						<div class="col-sm-1"></div>
+					</div>
+				</div>
+				<button id="bottoneCaricamento" title="Salva" name="Salva" type="button" class="btn bottone sinistra" data-ng-click="salva()">Salva</button>
+			</form>
+			</div>
+			<br>
+			</div>
+			
+			<div data-ng-include="'resources/html/partial/panelGadgetInviati.html'"></div>
+			
+			<button type="button" class="btn bottone sinistra" data-ng-click="tornaIndietro()">Indietro</button>
+		</div>
+		<div class="col-sm-1"></div>
+	</div>
+</div>

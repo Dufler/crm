@@ -1,0 +1,113 @@
+<div id="boxInfoAziendaNote" class="alert alert-info collapse"></div>
+
+<div class="panel panel-default" data-ng-controller="pannelloAziendaNoteController">
+	
+	<div id="headerPannelloNote" title="Note" class="panel-heading" data-ng-click="caricaNote()">Note</div>
+	<div id="pannelloAziendaNote" class="panel-body collapse">
+		<!-- Trigger the modal with a button -->
+		<button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#modaleAggiungiNota">Aggiungi nota</button>
+		<br />
+		<br />
+		<!-- Modal -->
+		<div id="modaleAggiungiNota" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Aggiungi una nota</h4>
+					</div>
+					<div class="modal-body">
+						<p>(Opzionale) Cerca il contatto.</p>
+						<form name="ricerca" novalidate>
+							<div class="input-group">
+								<input type="text" class="form-control" name="nomeContatto" data-ng-model="nomeContatto" placeholder="Cerca...">
+								<div class="input-group-btn">
+									<button id="bottoneCaricamento" title="Cerca" name="Cerca" class="btn btn-default" type="submit" data-ng-click="cercaContatto()">
+										<i class="glyphicon glyphicon-search"></i>
+									</button>
+								</div>
+							</div>
+						</form>
+						<br />
+						<div id="boxErroriRicercaContattoNota" class="alert alert-warning collapse"></div>
+						<table class="lista" data-at-table data-at-paginated data-at-list="contattiNota" data-at-config="configurazioneTabella">
+							<thead>
+								<tr class="lista">
+									<th class="lista" data-at-attribute="nome">Nome</th>
+									<th class="lista" data-at-attribute="cognome">Cognome</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="lista" data-ng-click="selezionaContattoNota(item)">
+									<td class="lista" data-at-attribute="nome" data-at-implicit data-at-sortable></td>
+									<td class="lista" data-at-attribute="cognome" data-at-implicit data-at-sortable></td>
+								</tr>
+							</tbody>
+						</table>
+						<at-pagination data-at-list="contattiNota" data-at-config="configurazioneTabella"></at-pagination>
+						<p data-ng-show="contattoSelezionato != undefined">Contatto selezionato: {{contattoSelezionato.nome}} {{contattoSelezionato.cognome}}</p>
+						<form name="formDatiNota" novalidate>
+							<div class="input-group col-sm-12">
+								<label for="note">Note:</label>
+								<textarea class="form-control col-sm-12" maxlength="250" form="formDatiNota" name="note" data-ng-model="noteScritte"> </textarea>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal" data-ng-click="aggiungiNota()">Inserisci</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Annulla</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br />
+		<div class="well well-sm" data-ng-repeat="nota in note" data-ng-controller="pannelloAziendaNotaController">
+			
+			<div id="modaleConfermaEliminazioneNota{{nota.id}}" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+					Modal content
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Conferma Eliminazione Nota</h4>
+						</div>
+						<div class="modal-body">
+							<p>Sei sicuro di voler eliminare la nota?</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-ng-click="eliminaNota()">Si</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+<!-- 			<div id="modaleConfermaAggiornamentoNota{{nota.id}}" class="modal fade" role="dialog"> -->
+<!-- 				<div class="modal-dialog"> -->
+<!-- 					Modal content -->
+<!-- 					<div class="modal-content"> -->
+<!-- 						<div class="modal-header"> -->
+<!-- 							<button type="button" class="close" data-dismiss="modal">&times;</button> -->
+<!-- 							<h4 class="modal-title">Conferma Aggiornamento Nota</h4> -->
+<!-- 						</div> -->
+<!-- 						<div class="modal-body"> -->
+<!-- 							<p>Sei sicuro di voler aggiornare la nota?</p> -->
+<!-- 						</div> -->
+<!-- 						<div class="modal-footer"> -->
+<!-- 							<button type="button" class="btn btn-default" data-ng-click="aggiornaNota()">Si</button> -->
+<!-- 							<button type="button" class="btn btn-default" data-dismiss="modal">No</button> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+			
+			<div class="alert alert-info" data-ng-show="mostraInfoNota">{{messaggioInfo}}<span class="close" data-dismiss="alert" aria-label="close" >&times;</span></div>
+			<div class="alert alert-error" data-ng-show="mostraErroreNota">{{messaggioErrore}}<span class="close" data-dismiss="alert" aria-label="close" >&times;</span></div>
+<!-- 			<span class="glyphicon glyphicon-pencil" data-ng-click="mostraConfermaAggiornamentoNota(nota)"></span> <span class="glyphicon glyphicon-trash" data-ng-click="mostraConfermaEliminazioneNota(nota)"></span> -->
+			<span class="glyphicon glyphicon-pencil" data-ng-click="aggiornaNota()"></span> <span class="glyphicon glyphicon-trash" data-ng-click="mostraConfermaEliminazioneNota()"></span>
+			<p>Autore: {{nota.autore}}</p>
+			<textarea  class="form-control" maxlength="250" form="formDatiNota" name="note" data-ng-model="nota.note"> </textarea>
+		</div>
+	</div>
+</div>

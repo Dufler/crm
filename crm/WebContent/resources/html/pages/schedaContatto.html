@@ -1,0 +1,63 @@
+<div data-ng-include="'resources/html/partial/navbar.html'"></div>
+<div class="container-fluid">
+	<div class="row">
+<!-- 		<div class="col-sm-2" data-ng-include="'resources/html/partial/menu.html'"></div> -->
+		<div class="col-sm-1"></div>
+		<div class="col-sm-8">
+			<h1>Contatto: {{contatto.nome}} {{contatto.cognome}}</h1>
+			<div id="boxErrori" class="alert alert-warning collapse" ></div>
+			<div id="boxNotifiche" class="alert alert-info collapse" ></div>
+			
+			<div class="panel panel-primary">
+			<div class="panel-heading">Informazioni base</div>
+			<div class="panel-body">
+			<form name="ricerca" novalidate>
+				<div id="form" class="container-fluid collapse in">
+					<div class="row form-group">
+						<div class="col-sm-5 form-group">
+							<label for="nome">Nome:</label> <input class="form-control" type="text" name="nome" data-ng-model="contatto.nome" />
+						</div>
+						<div class="col-sm-1"></div>
+						<div class="col-sm-5 form-group">
+							<label for="cognome">Cognome :</label> <input class="form-control" type="text" name="cognome" data-ng-model="contatto.cognome" />
+						</div>
+						<div class="col-sm-1"></div>
+					</div>
+					<div class="row form-group">
+						<div class="col-sm-5 form-group">
+							<label for="titolo">Titolo:</label> <select class="form-control" name="titolo" id="titolo" data-ng-model="contatto.titolo">
+								<option value="Signore">Signore</option>
+								<option value="Signora">Signora</option>
+								<option value="Signorina">Signorina</option>
+							</select>
+						</div>
+						<div class="col-sm-1"></div>
+						<div class="col-sm-5 form-group">
+							<label for="ruolo">Ruolo :</label> <input class="form-control" type="text" name="ruolo" data-ng-model="contatto.ruolo" />
+						</div>
+						<div class="col-sm-1"></div>
+					</div>
+					<div class="row form-group">
+						<div class="col-sm-5 form-group">
+							<label for="telefono">Telefono:</label> <input class="form-control" type="text" name="telefono" data-ng-model="contatto.telefono" />
+						</div>
+						<div class="col-sm-1"></div>
+						<div class="col-sm-5 form-group">
+							<label for="email">Email :</label> <input class="form-control" type="text" name="email" data-ng-model="contatto.email" />
+						</div>
+						<div class="col-sm-1"></div>
+					</div>
+				</div>
+				<button id="bottoneCaricamento" title="Salva" name="Salva" type="button" class="btn bottone sinistra" data-ng-click="salva()">Salva</button>
+			</form>
+			</div>
+			<br>
+			</div>
+			
+			<div data-ng-include="'resources/html/partial/panelContattoAziende.html'"></div>
+			
+			<button type="button" class="btn bottone sinistra" data-ng-click="tornaIndietro()">Indietro</button>
+		</div>
+		<div class="col-sm-3"></div>
+	</div>
+</div>
