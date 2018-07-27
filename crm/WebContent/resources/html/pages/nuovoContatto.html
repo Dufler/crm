@@ -8,7 +8,7 @@
 			<p>Inserisci le informazioni richieste e clicca il pulsante Salva.</p>
 			<form name="ricerca" novalidate>
 				<div id="boxErrori" class="alert alert-warning collapse" ></div>
-				<div id="form" class="container-fluid collapse in">
+				<div id="nuovoContatto" class="container-fluid collapse in">
 					<div class="row form-group">
 						<div class="col-sm-5 form-group">
 							<label for="nome">Nome:</label> <input class="form-control" type="text" name="nome" data-ng-model="nome" />
@@ -20,30 +20,37 @@
 						<div class="col-sm-1"></div>
 					</div>
 					<div class="row form-group">
-						<div class="col-sm-5 form-group">
-							<label for="titolo">Titolo:</label> <select class="form-control" name="titolo" id="titolo" data-ng-model="titolo">
-								<option value="Signore">Signore</option>
-								<option value="Signora">Signora</option>
-								<option value="Signorina">Signorina</option>
-							</select>
-						</div>
+<!-- 						<div class="col-sm-5 form-group"> -->
+<!-- 							<label for="titolo">Titolo:</label> <select class="form-control" name="titolo" id="titolo" data-ng-model="titolo"> -->
+<!-- 								<option value="Signore">Signore</option> -->
+<!-- 								<option value="Signora">Signora</option> -->
+<!-- 								<option value="Signorina">Signorina</option> -->
+<!-- 							</select> -->
+<!-- 						</div> -->
 						<div class="col-sm-1"></div>
 						<div class="col-sm-5 form-group">
 							<label for="ruolo">Ruolo :</label> <input class="form-control" type="text" name="ruolo" data-ng-model="ruolo" />
 						</div>
-						<div class="col-sm-1"></div>
+						<div class="col-sm-6"></div>
 					</div>
-					<div class="row form-group">
-						<div class="col-sm-5 form-group">
-							<label for="telefono">Telefono:</label> <input class="form-control" type="text" name="telefono" data-ng-model="telefono" />
+<!-- 					<div class="row form-group"> -->
+<!-- 						<div class="col-sm-5 form-group"> -->
+<!-- 							<label for="telefono">Telefono:</label> <input class="form-control" type="text" name="telefono" data-ng-model="telefono" /> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-sm-1"></div> -->
+<!-- 						<div class="col-sm-5 form-group"> -->
+<!-- 							<label for="email">Email :</label> <input class="form-control" type="text" name="email" data-ng-model="email" /> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-sm-1"></div> -->
+<!-- 					</div> -->
+					<div class="row col-sm-12">
+						<div class="input-group col-sm-12">
+							<label for="note">Note:</label>
+							<textarea class="form-control col-sm-12" maxlength="250" form="nuovoContatto" name="descrizione" data-ng-model="descrizione"> </textarea>
 						</div>
-						<div class="col-sm-1"></div>
-						<div class="col-sm-5 form-group">
-							<label for="email">Email :</label> <input class="form-control" type="text" name="email" data-ng-model="email" />
-						</div>
-						<div class="col-sm-1"></div>
 					</div>
 				</div>
+				<br>
 				<button id="bottoneCaricamento" title="Salva" name="Salva" type="button" class="btn bottone sinistra" data-ng-click="salva()">Salva</button>
 			</form>
 		</div>

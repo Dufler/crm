@@ -159,6 +159,9 @@ var getHTTPHeaderConfig = function() {
 	var config = {
 			headers : {Authorization : encodedAuthString, 'Content-Type' : 'application/json;charset=UTF-8'}
 	}
+//	var config = {
+//			headers : {Authorization : encodedAuthString, 'Content-Type' : 'application/json;charset=UTF-8', 'Accept': 'application/json', 'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, DELETE, PUT', 'Access-Control-Allow-Origin': 'https://clara.io', 'Access-Control-Allow-Headers': "X-Requested-With, Content-Type, Origin, Authorization, Accept, Client-Security-Token, Accept-Encoding"}
+//	}
 	return config;
 };
 

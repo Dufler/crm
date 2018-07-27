@@ -32,6 +32,10 @@ var IDModaleAggiungiNota = 'modaleAggiungiNota';
 var chiaveStorageAzienda = 'azienda';
 var chiaveStorageAziende = 'aziende';
 
+var chiaveStorageMostraTagServizi = 'mostraTagServizi';
+var chiaveStorageCaricamentoTagServizi = 'tagServiziCaricati';
+var chiaveStorageTagServiziPerAzienda = 'aziendaTagServizi';
+
 var chiaveStorageMostraContatti = 'mostraContatti';
 var chiaveStorageCaricamentoContatti = 'contattiCaricati';
 var chiaveStorageContattiPerAzienda = 'aziendaContatti';
@@ -40,16 +44,32 @@ var chiaveStorageMostraBrand = 'mostraBrand';
 var chiaveStorageCaricamentoBrand = 'brandCaricati';
 var chiaveStorageBrandPerAzienda = 'aziendaBrand';
 
+var chiaveStorageMostraIndirizzoAzienda = 'mostraIndirizzoAzienda';
+var chiaveStorageCaricamentoIndirizzoAzienda = 'IndirizzoAziendaCaricati';
+var chiaveStorageIndirizzoAzienda = 'aziendaIndirizzoAzienda';
+
+var chiaveStorageMostraCategorieAzienda = 'mostraCategorieAzienda';
+var chiaveStorageCaricamentoCategorieAzienda = 'CategorieAziendaCaricate';
+var chiaveStorageCategorieAzienda = 'aziendaCategorieAzienda';
+
+var chiaveStorageMostraServiziAzienda = 'mostraServiziAzienda';
+var chiaveStorageCaricamentoServiziAzienda = 'serviziAziendaCaricati';
+var chiaveStorageServiziAzienda = 'aziendaServiziAzienda';
+
 var chiaveStorageMostraNote = 'mostraNote';
 var chiaveStorageCaricamentoNote = 'noteCaricate';
 var chiaveStorageNotePerAzienda = 'aziendaNote';
 
 var pathSchedaAzienda = '/schedaAzienda';
 
+
+var IDPannelloAziendaTagServizi = 'pannelloAziendaServizi';
+var IDPannelloAziendaTagCategorie = 'pannelloAziendaCategorie';
+
 /**
  * Classe di oggetti che rappresenta un'azienda.
  */
-function Azienda(ragioneSociale, partitaIva, sitoWeb, email, telefono, inTrattiva, appetibile, tipoLogistica, valutazione) {
+function Azienda(ragioneSociale, partitaIva, sitoWeb, email, telefono, inTrattiva, appetibile, tipoLogistica, valutazione, descrizione, indirizzo) {
 	this.ragioneSociale = ragioneSociale;
 	this.partitaIva = partitaIva;
 	this.sitoWeb = sitoWeb;
@@ -59,8 +79,13 @@ function Azienda(ragioneSociale, partitaIva, sitoWeb, email, telefono, inTrattiv
 	this.appetibile = appetibile;
 	this.tipoLogistica = tipoLogistica;
 	this.valutazione = valutazione;
+	this.descrizione = descrizione;
+	this.indirizzo = indirizzo;
 };
 
+/**
+ * Classe di oggetti che rappresenta una nota.
+ */
 function Nota(autore, azienda, contatto, note) {
 	this.autore = autore,
 	this.azienda = azienda,
@@ -76,7 +101,7 @@ ltcApp.controller('nuovaAziendaController', function($scope, $http, $location, $
 	
 	$scope.salva = function() {
 		//Creo l'oggetto da passare per l'inserimento.
-		var azienda = new Azienda($scope.ragioneSociale, $scope.partitaIva, $scope.sitoWeb, $scope.email, $scope.telefono, $scope.inTrattiva, $scope.appetibile, $scope.tipoLogistica, $scope.valutazione);
+		var azienda = new Azienda($scope.ragioneSociale, $scope.partitaIva, $scope.sitoWeb, $scope.email, $scope.telefono, $scope.inTrattiva, $scope.appetibile, $scope.tipoLogistica, $scope.valutazione, $scope.descrizione, null);
 		//Imposto i parametri della chiamata
 		var funzioneOk = function(data) {
 			$scope.visualizzaDettaglio(data, chiaveStorageAzienda, pathSchedaAzienda);
@@ -135,7 +160,7 @@ ltcApp.controller('schedaAziendaController', function($scope, $http, $location, 
 	
 	$scope.salva = function() {
 		//Creo l'oggetto da passare per l'inserimento e ne valorizzo l'ID.
-		var azienda = new Azienda($scope.azienda.ragioneSociale, $scope.azienda.partitaIva, $scope.azienda.sitoWeb, $scope.azienda.email, $scope.azienda.telefono, $scope.azienda.inTrattiva, $scope.azienda.appetibile, $scope.azienda.tipoLogistica, $scope.azienda.valutazione);
+		var azienda = new Azienda($scope.azienda.ragioneSociale, $scope.azienda.partitaIva, $scope.azienda.sitoWeb, $scope.azienda.email, $scope.azienda.telefono, $scope.azienda.inTrattiva, $scope.azienda.appetibile, $scope.azienda.tipoLogistica, $scope.azienda.valutazione, $scope.azienda.descrizione, $scope.azienda.indirizzo);
 		azienda.id = $scope.azienda.id;
 		var funzioneOk = function(data) {
 			//Salvo la risposta in locale come azienda selezionata 
@@ -418,6 +443,184 @@ ltcApp.controller('pannelloAziendaNoteController', function($scope, $http, $loca
 	};
 
 
+});
+
+ltcApp.controller('pannelloAziendaIndirizzoController', function($scope, $http, $location, $filter) {
+	
+	$scope.azienda = JSON.parse(sessionStorage.getItem(chiaveStorageAzienda));
+	
+	$scope.caricaIndirizzo = function() {
+		//Se l'azienda ha un indirizzo e non l'ho ancora caricato lo faccio ora.
+		
+		var url = contextPath + wsBrandPerAzienda + $scope.azienda.id;
+		var funzioneOk = function(data) {
+			$scope.aziendaBrands = data;
+			sessionStorage.setItem(chiaveStorageIndirizzoAzienda, JSON.stringify(data));
+			sessionStorage.setItem(chiaveStorageCaricamentoIndirizzoAzienda, 'true');
+		};
+		var params = new ParametriChiamata(url, undefined, funzioneOk);
+		params.IDLoading = IDHeaderPannelloBrand;
+		$scope.chiamataGet(params);
+		//Mostro o nascondo il pannello
+		if (sessionStorage.getItem(chiaveStorageMostraIndirizzoAzienda) == 'true') {
+			sessionStorage.setItem(chiaveStorageMostraIndirizzoAzienda, 'false');
+			$("#" + IDPannelloAziendaBrand).collapse('hide');
+		} else {
+			sessionStorage.setItem(chiaveStorageMostraIndirizzoAzienda, 'true');
+			$("#" + IDPannelloAziendaBrand).collapse('show');
+		}
+	}
+	
+	$scope.province = $scope.getProvince();
+	$scope.nazioni = $scope.getNazioni();
+	
+});
+
+ltcApp.controller('pannelloAziendaServiziController', function($scope, $http, $location, $filter) {
+	
+	$scope.azienda = JSON.parse(sessionStorage.getItem(chiaveStorageAzienda));
+	
+	//Funzioni per il recupero delle informazioni addizionali sulle categorie.
+	sessionStorage.setItem(chiaveStorageMostraServiziAzienda, 'false');
+	sessionStorage.setItem(chiaveStorageCaricamentoServiziAzienda, 'false');
+	
+	$scope.nuovoServizio = "";
+	$scope.servizi = [];
+	
+	$scope.caricaServizi = function() {
+		//Se non ho ancora caricato le note le carico ora.
+		var url = contextPath + wsTagServizi + '/azienda/' + $scope.azienda.id;
+		var funzioneOk = function(data) {
+			$scope.servizi = data;
+			sessionStorage.setItem(chiaveStorageServiziAzienda, JSON.stringify(data));
+			sessionStorage.setItem(chiaveStorageCaricamentoServiziAzienda, 'true');
+		};
+		var params = new ParametriChiamata(url, undefined, funzioneOk);
+		params.IDLoading = 'headerPannelloServizi';
+		$scope.chiamataGet(params);
+		//Mostro o nascondo il pannello
+		if (sessionStorage.getItem(chiaveStorageMostraServiziAzienda) == 'true') {
+			sessionStorage.setItem(chiaveStorageMostraServiziAzienda, 'false');
+			$("#" + IDPannelloAziendaTagServizi).collapse('hide');
+		} else {
+			sessionStorage.setItem(chiaveStorageMostraServiziAzienda, 'true');
+			$("#" + IDPannelloAziendaTagServizi).collapse('show');
+		}
+	};
+	
+	$scope.aggiungi = function() {
+		var nuovoTagServizio = {azienda : $scope.azienda.id, tag : $scope.nuovoServizio};
+		var funzioneOk = function(data) {
+			$scope.servizi.unshift(data);
+			sessionStorage.setItem(chiaveStorageServiziAzienda, JSON.stringify($scope.servizi));
+			mostraMessaggio('Servizio inserito!', 'boxInfoAziendaServizi');
+			$scope.nuovoServizio = '';
+		};
+		var params = new ParametriChiamata(contextPath + wsTagServizi, nuovoTagServizio, funzioneOk);
+		params.statusCodeSuccesso = 201;
+		params.IDError = 'boxInfoAziendaServizi';
+		$scope.chiamataPost(params);
+	};
+	
+});
+
+ltcApp.controller('tagAziendaServiziController', function($scope, $http, $location, $filter) {
+	
+	$scope.elimina = function(tag) {
+		var funzioneOk = function(data) {
+			var index = -1;
+			for (var i = 0; i < $scope.servizi.length; i++) {
+				if (data.tag == $scope.servizi[i].tag) {
+					index = i;
+				}
+			}
+			if (index != -1) {
+				$scope.servizi.splice(index, 1);
+				sessionStorage.setItem(chiaveStorageServiziAzienda, JSON.stringify($scope.servizi));
+				mostraMessaggio('Servizio eliminato!', 'boxInfoAziendaServizi');
+			} else {
+				console.log('Warning: Servizio non trovato.')
+			}
+		};
+		var params = new ParametriChiamata(contextPath + wsTagServizi, tag, funzioneOk);
+		params.IDError = 'boxInfoAziendaServizi';
+		$scope.chiamataDelete(params);
+	};
+	
+});
+
+
+ltcApp.controller('pannelloAziendaCategorieController', function($scope, $http, $location, $filter) {
+	
+	$scope.azienda = JSON.parse(sessionStorage.getItem(chiaveStorageAzienda));
+	
+	//Funzioni per il recupero delle informazioni addizionali sulle categorie.
+	sessionStorage.setItem(chiaveStorageMostraCategorieAzienda, 'false');
+	sessionStorage.setItem(chiaveStorageCaricamentoCategorieAzienda, 'false');
+	
+	$scope.nuovaCategoria = "";
+	$scope.categorie = [];
+	
+	$scope.caricaCategorie = function() {
+		//Se non ho ancora caricato le note le carico ora.
+		var url = contextPath + wsTagCategorie + '/azienda/' + $scope.azienda.id;
+		var funzioneOk = function(data) {
+			$scope.categorie = data;
+			sessionStorage.setItem(chiaveStorageCategorieAzienda, JSON.stringify(data));
+			sessionStorage.setItem(chiaveStorageCaricamentoCategorieAzienda, 'true');
+		};
+		var params = new ParametriChiamata(url, undefined, funzioneOk);
+		params.IDLoading = 'headerPannelloCategorie';
+		$scope.chiamataGet(params);
+		//Mostro o nascondo il pannello
+		if (sessionStorage.getItem(chiaveStorageMostraCategorieAzienda) == 'true') {
+			sessionStorage.setItem(chiaveStorageMostraCategorieAzienda, 'false');
+			$("#" + IDPannelloAziendaTagCategorie).collapse('hide');
+		} else {
+			sessionStorage.setItem(chiaveStorageMostraCategorieAzienda, 'true');
+			$("#" + IDPannelloAziendaTagCategorie).collapse('show');
+		}
+	};
+	
+	$scope.aggiungi = function() {
+		var nuovoTagCategoria = {azienda : $scope.azienda.id, tag : $scope.nuovaCategoria};
+		var funzioneOk = function(data) {
+			$scope.categorie.unshift(data);
+			sessionStorage.setItem(chiaveStorageCategorieAzienda, JSON.stringify($scope.categorie));
+			mostraMessaggio('Categoria inserita!', 'boxInfoAziendaCategorie');
+			$scope.nuovaCategoria = "";
+		};
+		var params = new ParametriChiamata(contextPath + wsTagCategorie, nuovoTagCategoria, funzioneOk);
+		params.statusCodeSuccesso = 201;
+		params.IDError = 'boxInfoAziendaCategorie';
+		$scope.chiamataPost(params);
+	};
+	
+});
+
+ltcApp.controller('tagAziendaCategorieController', function($scope, $http, $location, $filter) {
+	
+	$scope.elimina = function(tag) {
+		var funzioneOk = function(data) {
+			var index = -1;
+			for (var i = 0; i < $scope.categorie.length; i++) {
+				if (data.tag == $scope.categorie[i].tag) {
+					index = i;
+				}
+			}
+			if (index != -1) {
+				$scope.categorie.splice(index, 1);
+				sessionStorage.setItem(chiaveStorageCategorieAzienda, JSON.stringify($scope.categorie));
+				mostraMessaggio('Categoria eliminata!', 'boxInfoAziendaCategorie');
+			} else {
+				console.log('Warning: Categoria non trovata.')
+			}
+		};
+		var params = new ParametriChiamata(contextPath + wsTagCategorie, tag, funzioneOk);
+		params.IDError = 'boxInfoAziendaCategorie';
+		$scope.chiamataDelete(params);
+	};
+	
 });
 
 ltcApp.controller('pannelloAziendaNotaController', function($scope, $http, $location, $filter) {

@@ -1,0 +1,21 @@
+<div id="boxInfoAziendaServizi" class="alert alert-info collapse"></div>
+
+<div class="panel panel-default" data-ng-controller="pannelloAziendaServiziController">
+	<div id="headerPannelloServizi" title="Servizi Richiesti" class="panel-heading" data-ng-click="caricaServizi()">Servizi Richiesti</div>
+	<div id="pannelloAziendaServizi" class="panel-body collapse">
+		<form name="serviziAzienda" novalidate>
+			<div id="formServiziAzienda" class="container-fluid collapse in">
+				<div class="row form-group">
+					<div class="col-sm-9 form-group">
+						<label for="servizio">Nuovo servizio:</label> <input class="form-control" type="text" name="servizio" data-ng-model="nuovoServizio" />
+					</div>
+					<div class="col-sm-3 form-group">
+						<br>
+						<button id="bottoneNuovoServizio" title="Aggiungi" name="Aggiungi" type="submit" class="btn bottone sinistra" data-ng-click="aggiungi()">Aggiungi</button>
+					</div>
+				</div>
+			</div>
+		</form>
+		<span data-ng-repeat="tag in servizi" data-ng-controller="tagAziendaServiziController"><span class="label label-success testogrande" >{{tag.tag}} <span data-ng-click="elimina(tag)" class="glyphicon glyphicon-trash"></span></span> </span>
+	</div>
+</div>

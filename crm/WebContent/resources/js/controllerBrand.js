@@ -26,8 +26,9 @@ var pathSchedaBrand = '/schedaBrand';
 /**
  * Classe di oggetti che rappresenta un brand.
  */
-function Brand(nome) {
-	this.nome = nome
+function Brand(nome, descrizione) {
+	this.nome = nome,
+	this.descrizione = descrizione	
 }
 
 ltcApp.controller('nuovoBrandController', function($scope, $http, $location, $filter) {
@@ -38,7 +39,7 @@ ltcApp.controller('nuovoBrandController', function($scope, $http, $location, $fi
 	
 	$scope.salva = function() {
 		//Creo l'oggetto da passare per l'inserimento.
-		var brand = new Brand($scope.nome);
+		var brand = new Brand($scope.nome, $scope.descrizione);
 		//Imposto i parametri della chiamata
 		var funzioneOk = function(data) {
 			$scope.visualizzaDettaglio(data, chiaveStorageBrand, pathSchedaBrand);
@@ -97,7 +98,7 @@ ltcApp.controller('schedaBrandController', function($scope, $http, $location, $f
 	
 	$scope.salva = function() {
 		//Creo l'oggetto da passare per l'inserimento e ne valorizzo l'ID.
-		var brand = new Brand($scope.brand.nome);
+		var brand = new Brand($scope.brand.nome, $scope.brand.descrizione);
 		brand.id = $scope.brand.id;
 		var funzioneOk = function(data) {
 			//Salvo la risposta in locale come azienda selezionata 

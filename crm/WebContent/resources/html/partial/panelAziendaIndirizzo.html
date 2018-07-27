@@ -1,0 +1,48 @@
+<div id="boxInfoAziendaIndirizzo" class="alert alert-info collapse"></div>
+<div class="panel panel-default" data-ng-controller="pannelloAziendaIndirizzoController">
+	<div id="headerPannelloIndirizzo" title="Indirizzo" class="panel-heading" data-ng-click="caricaIndirizzo()">Indirizzo</div>
+	<div id="pannelloAziendaIndirizzo" class="panel-body collapse">
+		<form name="datiAziendaIndirizzo" novalidate>
+			<div id="formAziendaIndirizzo">
+				<div class="row form-group">
+					<div class="col-sm-5 form-group">
+						<label for="ragioneSociale">Ragione sociale:</label> <input class="form-control" type="text" name="ragioneSociale" data-ng-model="indirizzo.ragioneSociale" />
+					</div>
+					<div class="col-sm-1"></div>
+					<div class="col-sm-5 form-group">
+						<label for="indirizzo">Via :</label> <input class="form-control" type="text" name="indirizzo" data-ng-model="indirizzo.indirizzo" />
+					</div>
+					<div class="col-sm-1"></div>
+				</div>
+				<div class="row form-group">
+					<div class="col-sm-5 form-group">
+						<label for="localita">Localit&agrave;:</label> <input class="form-control" type="text" name="localita" data-ng-model="indirizzo.localita" />
+					</div>
+					<div class="col-sm-1"></div>
+					<div class="col-sm-5 form-group">
+						<label for="cap">CAP :</label> <input class="form-control" type="text" name="cap" data-ng-model="indirizzo.cap" />
+					</div>
+					<div class="col-sm-1"></div>
+				</div>
+				<div class="row form-group">
+					<div class="col-sm-5 form-group">
+						<label for="provincia">Provincia:</label>
+						<select class="form-control" name="provincia" id="provincia" data-ng-model="indirizzo.provincia">
+							<option data-ng-repeat="x in province track by x.sigla" value="{{x.sigla}}">{{x.nome}}</option>
+						</select>
+					</div>
+					<div class="col-sm-1"></div>
+					<div class="col-sm-5 form-group">
+						<label for="nazione">Nazione:</label>
+						<select class="form-control" name="nazione" id="nazione" data-ng-model="indirizzo.nazione">
+							<option data-ng-repeat="x in nazioni track by x.codiceIsoTre" value="{{x.codiceIsoTre}}">{{x.nome}}</option>
+						</select>
+					</div>
+					<div class="col-sm-1"></div>
+				</div>
+			</div>
+			<br>
+			<button id="bottoneCaricamento" title="Salva" name="Salva" type="button" class="btn bottone sinistra" data-ng-click="salva()">Salva</button>
+		</form>
+	</div>
+</div>

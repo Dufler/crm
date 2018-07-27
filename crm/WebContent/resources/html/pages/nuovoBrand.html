@@ -8,14 +8,21 @@
 			<p>Inserisci le informazioni richieste e clicca il pulsante Salva.</p>
 			<form name="ricerca" novalidate>
 				<div id="boxErrori" class="alert alert-warning collapse" ></div>
-				<div id="form" class="container-fluid collapse in">
-					<div class="row form-group">
+				<div id="datiBrand" class="container-fluid collapse in">
+					<div class="row">
 						<div class="col-sm-5 form-group">
 							<label for="nome">Nome:</label> <input class="form-control" type="text" name="nome" data-ng-model="nome" />
 						</div>
 						<div class="col-sm-7"></div>
 					</div>
+					<div class="row col-sm-12">
+						<div class="input-group col-sm-12">
+							<label for="note">Descrizione:</label>
+							<textarea class="form-control col-sm-12" maxlength="25000" form="datiBrand" name="descrizione" data-ng-model="descrizione"> </textarea>
+						</div>
+					</div>
 				</div>
+				<br>
 				<button id="bottoneCaricamento" title="Salva" name="Salva" type="button" class="btn bottone sinistra" data-ng-click="salva()">Salva</button>
 			</form>
 		</div>

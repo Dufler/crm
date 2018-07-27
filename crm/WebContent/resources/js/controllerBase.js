@@ -59,6 +59,10 @@ ltcApp.controller('indexController', function($scope) {
 	
 	$scope.message = 'Ciao ' + sessionStorage.nome + " " + sessionStorage.cognome + "!";
 	
+	//Carico alcuni dati statici.
+	$scope.getProvince();
+	$scope.getNazioni();
+	
 });
 
 ltcApp.controller('preferencesController', function($scope, $http) {

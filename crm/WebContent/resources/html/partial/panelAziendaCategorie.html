@@ -1,0 +1,21 @@
+<div id="boxInfoAziendaCategorie" class="alert alert-info collapse"></div>
+
+<div class="panel panel-default" data-ng-controller="pannelloAziendaCategorieController">
+	<div id="headerPannelloCategorie" title="Categorie Merceologiche" class="panel-heading" data-ng-click="caricaCategorie()">Categorie Merceologiche</div>
+	<div id="pannelloAziendaCategorie" class="panel-body collapse">
+		<form name="categoriaAzienda" novalidate>
+			<div id="formCategoriaAzienda" class="container-fluid collapse in">
+				<div class="row form-group">
+					<div class="col-sm-9 form-group">
+						<label for="categoria">Nuova categoria:</label> <input class="form-control" type="text" name="categoria" data-ng-model="nuovaCategoria" />
+					</div>
+					<div class="col-sm-3 form-group">
+						<br>
+						<button id="bottoneNuovaCategoria" title="Aggiungi" name="Aggiungi" type="button" class="btn bottone sinistra" data-ng-click="aggiungi()">Aggiungi</button>
+					</div>
+				</div>
+			</div>
+		</form>
+		<span data-ng-repeat="tag in categorie" data-ng-controller="tagAziendaCategorieController"><span class="label label-success testogrande" >{{tag.tag}} <span data-ng-click="elimina(tag)" class="glyphicon glyphicon-trash"></span></span> </span>
+	</div>
+</div>

@@ -11,7 +11,7 @@
 			<div class="panel panel-primary">
 			<div class="panel-heading">Informazioni base</div>
 			<div class="panel-body">
-			<form name="datiAzienda" novalidate>
+			<form name="schedaAzienda" novalidate>
 				<div id="form" class="container-fluid collapse in">
 					<div class="row form-group">
 						<div class="col-sm-5 form-group">
@@ -39,7 +39,12 @@
 						</div>
 						<div class="col-sm-1"></div>
 						<div class="col-sm-5 form-group">
-							<label for="inTrattiva">In trattiva: </label> <input type="checkbox" name="inTrattiva" value="inTrattiva" data-ng-model="azienda.inTrattiva" />
+							<label for="inTrattiva">In trattiva: </label> <select class="form-control" name="inTrattiva" id="inTrattiva" data-ng-model="azienda.inTrattiva">
+								<option value="NO">No</option>
+								<option value="IN_TRATTATIVA">In Trattativa</option>
+								<option value="CLIENTE">Cliente</option>
+								<option value="EX_CLIENTE">Ex-Cliente</option>
+							</select>
 						</div>
 						<div class="col-sm-1"></div>
 					</div>
@@ -62,12 +67,25 @@
 						</div>
 						<div class="col-sm-1"></div>
 					</div>
+					<div class="row col-sm-12">
+						<div class="input-group col-sm-12">
+							<label for="note">Note:</label>
+						<textarea class="form-control col-sm-12" maxlength="250" form="schedaAzienda" name="descrizione" data-ng-model="azienda.descrizione"> </textarea>
+						</div>
+					</div>
 				</div>
+				<br>
 				<button id="bottoneCaricamento" title="Salva" name="Salva" type="button" class="btn bottone sinistra" data-ng-click="salva()">Salva</button>
 			</form>
 			</div>
 			<br>
 			</div>
+			
+			<div data-ng-include="'resources/html/partial/panelAziendaCategorie.html'"></div>
+			
+			<div data-ng-include="'resources/html/partial/panelAziendaServizi.html'"></div>
+			
+			<div data-ng-include="'resources/html/partial/panelAziendaIndirizzo.html'"></div>
 		    
 		    <div data-ng-include="'resources/html/partial/panelAziendaContatti.html'"></div>
 		    

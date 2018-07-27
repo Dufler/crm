@@ -68,6 +68,11 @@ h3
 	color: #2d3032;
 }
 
+span.testogrande
+{
+	font-size: 1.25em;
+}
+
 table.lista
 {
     border-collapse: collapse;

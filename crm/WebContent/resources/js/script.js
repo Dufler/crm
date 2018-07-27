@@ -5,9 +5,14 @@
 /* Costanti */
 
 
-var contextPath = "http://ws.services.ltc-logistics.it/logica/rest";
+var contextPath = "http://test.services.ltc-logistics.it/logica/rest";
 var wsLogin = "/utente/login";
 var wsUpdate = "/utente/update";
+
+var wsProvince = "/provincia";
+var wsNazioni = "/nazione";
+
+var wsIndirizzo = "/indirizzo";
 
 var wsAzienda = "/crm/azienda";
 var wsAziendePerContatto = "/crm/azienda/contatto/";
@@ -35,6 +40,9 @@ var wsGadgetInviatiPerGadget = "/crm/gadgetinviati/gadget/";
 
 var wsAssociazioneAziendaContatto = "/crm/associazioneaziendacontatto";
 var wsAssociazioneAziendaBrand = "/crm/associazioneaziendabrand";
+
+var wsTagServizi = "/crm/tagservizi";
+var wsTagCategorie = "/crm/tagcategorie";
 
 //Messaggi per l'utente
 
@@ -333,6 +341,41 @@ ltcApp.run(function($rootScope, $location, $http) {
 				parametri.mostraCaricamento(false);
 			}
 		);
-	}	
+	}
+	
+	$rootScope.getProvince = function() {
+		//Controllo se ho già in memoria una ricerca precedente.
+		var province = sessionStorage.getItem('province');
+		if (province == "undefined" || province == undefined || province == null) {
+			var url = contextPath + wsProvince;
+			var funzioneOk = function(data) {
+				province = data;
+				sessionStorage.setItem('province', JSON.stringify(data));
+			};
+			var params = new ParametriChiamata(url, undefined, funzioneOk);
+			params.nascondiElementi = function() { /*Non fare nulla!*/ };
+			params.mostraCaricamento = function(show) { /*Non fare nulla!*/ };
+			$rootScope.chiamataGet(params);
+		}
+		province = JSON.parse(province);
+		return province;
+	}
+	
+	$rootScope.getNazioni = function() {
+		//Controllo se ho già in memoria una ricerca precedente.
+		var nazioni = sessionStorage.getItem('nazioni');
+		if (nazioni == "undefined" || nazioni == undefined || nazioni == null) {
+			var url = contextPath + wsNazioni;
+			var funzioneOk = function(data) {
+				sessionStorage.setItem('nazioni', JSON.stringify(data));
+			};
+			var params = new ParametriChiamata(url, undefined, funzioneOk);
+			params.nascondiElementi = function() { /*Non fare nulla!*/ };
+			params.mostraCaricamento = function(show) { /*Non fare nulla!*/ };
+			$rootScope.chiamataGet(params);
+		}
+		nazioni = JSON.parse(nazioni);
+		return nazioni;
+	}
 	
 });
