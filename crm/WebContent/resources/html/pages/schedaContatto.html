@@ -31,11 +31,11 @@
 <!-- 								<option value="Signorina">Signorina</option> -->
 <!-- 							</select> -->
 <!-- 						</div> -->
-						<div class="col-sm-1"></div>
+<!-- 						<div class="col-sm-1"></div> -->
 						<div class="col-sm-5 form-group">
 							<label for="ruolo">Ruolo :</label> <input class="form-control" type="text" name="ruolo" data-ng-model="contatto.ruolo" />
 						</div>
-						<div class="col-sm-6"></div>
+						<div class="col-sm-7"></div>
 					</div>
 <!-- 					<div class="row form-group"> -->
 <!-- 						<div class="col-sm-5 form-group"> -->
@@ -50,15 +50,20 @@
 					<div class="row col-sm-12">
 						<div class="input-group col-sm-12">
 							<label for="note">Note:</label>
-							<textarea class="form-control col-sm-12" maxlength="250" form="schedaContatto" name="descrizione" data-ng-model="descrizione"> </textarea>
+							<textarea class="form-control col-sm-12" maxlength="250" form="schedaContatto" name="descrizione" data-ng-model="contatto.descrizione"> </textarea>
 						</div>
 					</div>
 				</div>
+				<br>
 				<button id="bottoneCaricamento" title="Salva" name="Salva" type="button" class="btn bottone sinistra" data-ng-click="salva()">Salva</button>
 			</form>
 			</div>
-			<br>
+<!-- 			<br> -->
 			</div>
+			
+			<div data-ng-include="'resources/html/partial/panelContattoRecapiti.html'"></div>
+			
+			<div data-ng-include="'resources/html/partial/panelContattoIndirizzo.html'"></div>
 			
 			<div data-ng-include="'resources/html/partial/panelContattoAziende.html'"></div>
 			

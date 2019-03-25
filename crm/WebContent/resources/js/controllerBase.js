@@ -2,6 +2,9 @@
  * In Questo file JavaScript sono contenuti tutti i controller base.
  */
 
+var chiaveStorageRicercaGenerica = 'risultatiRicerca';
+var IDBoxNotificheRicerca = 'boxNotificheRicercaTutto';
+
 // Controller principale e inject Angular's $scope
 ltcApp.controller('mainController', function($scope, $http, $location) {
 
@@ -57,11 +60,64 @@ ltcApp.controller('indexController', function($scope) {
 	
 	setCurrentPage('/index');
 	
+	$scope.configurazioneTabellaAziende = { itemsPerPage: 10, fillLastPage: false, maxPages : 10 };
+	$scope.configurazioneTabellaContatti = { itemsPerPage: 10, fillLastPage: false, maxPages : 10 };
+	$scope.configurazioneTabellaNote = { itemsPerPage: 10, fillLastPage: false, maxPages : 10 };
+	$scope.configurazioneTabellaBrand = { itemsPerPage: 10, fillLastPage: false, maxPages : 10 };
+	
 	$scope.message = 'Ciao ' + sessionStorage.nome + " " + sessionStorage.cognome + "!";
+	$scope.aziende = [];
+	$scope.note = [];
+	$scope.contatti = [];
+	$scope.mostraAziende = false;
+	$scope.mostraNote = false;
+	$scope.mostraContatti = false;
+	$scope.mostraBrand = false;
 	
 	//Carico alcuni dati statici.
 	$scope.getProvince();
 	$scope.getNazioni();
+	
+	$scope.cerca = function() {
+		//Condizioni di ricerca
+		var filtro = { testo : $scope.testo };
+		//Imposto i parametri della chiamata
+		var funzioneOk = function(data) {
+			$scope.aziende = data.aziende;
+			$scope.note = data.note;
+			$scope.contatti = data.contatti;
+			$scope.brands = data.brands;
+			sessionStorage.setItem(chiaveStorageRicercaGenerica, JSON.stringify(data));
+			//Mostro solo le parti che hanno risultati
+			if ($scope.aziende.length > 0) {
+				$scope.mostraAziende = true;
+			} else {
+				$scope.mostraAziende = false;
+			}
+			if ($scope.note.length > 0) {
+				$scope.mostraNote = true;
+			} else {
+				$scope.mostraNote = false;
+			}
+			if ($scope.contatti.length > 0) {
+				$scope.mostraContatti = true;
+			} else {
+				$scope.mostraContatti = false;
+			}
+			if ($scope.brands.length > 0) {
+				$scope.mostraBrand = true;
+			} else {
+				$scope.mostraBrand = false;
+			}
+			//Se non sono state trovate aziende mostro il messaggio di consiglio.
+			if (!$scope.mostraAziende && !$scope.mostraNote && !$scope.mostraContatti)
+				mostraMessaggio(messaggioNessunRisultato, IDBoxNotificheRicerca);
+		};
+		var params = new ParametriChiamata(contextPath + wsRicercaGenerica, filtro, funzioneOk);
+		params.IDInfo = IDBoxNotificheRicerca;
+		//Eseguo la ricerca
+		$scope.chiamataPost(params);
+	};
 	
 });
 

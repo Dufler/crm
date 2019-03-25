@@ -3,33 +3,139 @@
 	<div class="row">
 <!-- 		<div class="col-sm-2" data-ng-include="'resources/html/partial/menu.html'"></div> -->
 		<div class="col-sm-1"></div>
-		<div class="col-sm-7">
+		<div class="col-sm-10">
 			<h1>{{message}}</h1>
-			<h2>SELEZIONA L&#39;ATTIVIT&Agrave;</h2>
+<!-- 			<h2>SELEZIONA L&#39;ATTIVIT&Agrave;</h2> -->
 			<br>
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-sm-1 boxicona">
-						<a href="#index"><img class="boxicona" src="resources/images/iconaCerca.png" /></a>
-					</div>
-					<div class="col-sm-10">
-						<h3><a href="#lista">CERCA...</a></h3>
-						<p>Questa funzione non e' ancora stata implementata, usa i menù in alto.</p>
-					</div>
-					<div class="col-sm-1"></div>
-				</div>
-				<div class="row">
-					<div class="col-sm-1 boxicona">
-						<a href="#preferenze"><img class="boxicona" src="resources/images/iconaPreferenze.png" /></a>
-					</div>				
-					<div class="col-sm-10">
-						<h3><a href="#preferenze">PREFERENZE E ASSISTENZA</a></h3>
-						<p>Qui puoi impostare le preferenze per il tuo account, cambiare la tua password o chiedere assistenza.</p>
+					<div class="col-sm-11">
+						<form name="ricerca" novalidate>
+							<div id="formCercaTutto" class="container-fluid collapse in">
+								<div class="row form-group">
+									<div class="col-sm-6 form-group">
+										<label for="testo">Cerca su tutto:</label> <input class="form-control" type="text" placeholder="Cerca..." name="testo" data-ng-model="testo" />
+									</div>
+									<div class="col-sm-6">
+										<br>
+										<button id="bottoneCaricamento" title="Cerca" name="Cerca" type="submit" class="btn bottone sinistra" data-ng-click="cerca()"><span class="glyphicon glyphicon-search"></span> Cerca</button>
+									</div>
+								</div>
+							</div>
+							<br />
+						</form>
+						<br />
+						<div id="boxNotificheRicercaTutto" class="alert alert-info collapse"></div>
+						<br />
+						<div data-ng-show="mostraAziende">
+						<h3>Aziende trovate</h3>
+						<table class="lista" data-at-table data-at-paginated data-at-list="aziende" data-at-config="configurazioneTabellaAziende">
+							<thead>
+								<tr class="lista">
+									<th class="lista" data-at-attribute="ragioneSociale">Ragione sociale</th>
+									<th class="lista" data-at-attribute="email">Email</th>
+									<th class="lista" data-at-attribute="telefono">Telefono</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="lista" data-ng-click="visualizzaDettaglio(item, 'azienda', '/schedaAzienda')">
+									<td class="lista" data-at-attribute="ragioneSociale" data-at-implicit data-at-sortable></td>
+									<td class="lista" data-at-attribute="email" data-at-implicit data-at-sortable></td>
+									<td class="lista" data-at-attribute="telefono" data-at-implicit data-at-sortable></td>
+								</tr>
+							</tbody>
+						</table>
+						<at-pagination data-at-list="aziende" data-at-config="configurazioneTabellaAziende"></at-pagination>
+						<br />
+						</div>
+						<div data-ng-show="mostraContatti">
+						<h3>Contatti trovati</h3>
+						<table class="lista" data-at-table data-at-paginated data-at-list="contatti" data-at-config="configurazioneTabellaContatti">
+							<thead>
+								<tr class="lista">
+									<th class="lista" data-at-attribute="nome">Nome</th>
+									<th class="lista" data-at-attribute="cognome">Cognome</th>
+									<th class="lista" data-at-attribute="ruolo">Ruolo</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="lista" data-ng-click="visualizzaDettaglio(item, 'contatto', '/schedaContatto')">
+									<td class="lista" data-at-attribute="nome" data-at-implicit data-at-sortable></td>
+									<td class="lista" data-at-attribute="cognome" data-at-implicit data-at-sortable></td>
+									<td class="lista" data-at-attribute="ruolo" data-at-implicit data-at-sortable></td>
+								</tr>
+							</tbody>
+						</table>
+						<at-pagination data-at-list="contatti" data-at-config="configurazioneTabellaContatti"></at-pagination>
+						<br />
+						</div>
+						<div data-ng-show="mostraNote">
+						<h3>Note trovate</h3>
+						<table class="lista" data-at-table data-at-paginated data-at-list="note" data-at-config="configurazioneTabellaNote">
+							<thead>
+								<tr class="lista">
+									<th class="lista" data-at-attribute="nomeAzienda">Azienda</th>
+									<th class="lista" data-at-attribute="autore">Autore</th>
+									<th class="lista" data-at-attribute="dataFormattata">Data</th>
+									<th class="lista" data-at-attribute="note">Note</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="lista">
+									<td class="lista" data-at-attribute="nomeAzienda" data-at-implicit data-at-sortable></td>
+									<td class="lista" data-at-attribute="autore" data-at-implicit data-at-sortable></td>
+									<td class="lista" data-at-attribute="dataFormattata" data-at-implicit data-at-sortable></td>
+									<td class="lista" data-at-attribute="note" data-at-implicit data-at-sortable></td>
+								</tr>
+							</tbody>
+						</table>
+						<at-pagination data-at-list="contatti" data-at-config="configurazioneTabellaNote"></at-pagination>
+						<br />
+						</div>
+						<div data-ng-show="mostraBrand">
+						<h3>Brand trovati</h3>
+						<table class="lista" data-at-table data-at-paginated data-at-list="brands" data-at-config="configurazioneTabellaBrand">
+							<thead>
+								<tr class="lista">
+									<th class="lista" data-at-attribute="nome">Nome</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="lista" data-ng-click="visualizzaDettaglio(item, 'brand', '/schedaBrand')">
+									<td class="lista" data-at-attribute="nome" data-at-implicit data-at-sortable></td>
+								</tr>
+							</tbody>
+						</table>
+						<at-pagination data-at-list="brands" data-at-config="configurazioneTabellaBrand"></at-pagination>
+						<br />
+						</div>
 					</div>
 					<div class="col-sm-1"></div>
 				</div>
 			</div>
+<!-- 			<div class="container-fluid"> -->
+<!-- 				<div class="row"> -->
+<!-- 					<div class="col-sm-1 boxicona"> -->
+<!-- 						<a href="#index"><img class="boxicona" src="resources/images/iconaCerca.png" /></a> -->
+<!-- 					</div> -->
+<!-- 					<div class="col-sm-10"> -->
+<!-- 						<h3><a href="#lista">CERCA...</a></h3> -->
+<!-- 						<p>Questa funzione non e' ancora stata implementata, usa i menù in alto.</p> -->
+<!-- 					</div> -->
+<!-- 					<div class="col-sm-1"></div> -->
+<!-- 				</div> -->
+<!-- 				<div class="row"> -->
+<!-- 					<div class="col-sm-1 boxicona"> -->
+<!-- 						<a href="#preferenze"><img class="boxicona" src="resources/images/iconaPreferenze.png" /></a> -->
+<!-- 					</div>				 -->
+<!-- 					<div class="col-sm-10"> -->
+<!-- 						<h3><a href="#preferenze">PREFERENZE E ASSISTENZA</a></h3> -->
+<!-- 						<p>Qui puoi impostare le preferenze per il tuo account, cambiare la tua password o chiedere assistenza.</p> -->
+<!-- 					</div> -->
+<!-- 					<div class="col-sm-1"></div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
 		</div>
-		<div class="col-sm-3"></div>
+		<div class="col-sm-1"></div>
 	</div>
 </div>

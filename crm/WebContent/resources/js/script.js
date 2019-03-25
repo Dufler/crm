@@ -5,23 +5,27 @@
 /* Costanti */
 
 
-var contextPath = "http://test.services.ltc-logistics.it/logica/rest";
+var contextPath = "http://ws.services.ltc-logistics.it/logica/rest";
 var wsLogin = "/utente/login";
 var wsUpdate = "/utente/update";
 
 var wsProvince = "/provincia";
 var wsNazioni = "/nazione";
 
-var wsIndirizzo = "/indirizzo";
+var wsRicercaGenerica = "/crm/cerca";
 
 var wsAzienda = "/crm/azienda";
 var wsAziendePerContatto = "/crm/azienda/contatto/";
 var wsAziendePerBrand = "/crm/azienda/brand/";
+var wsAziendaIndirizzo = "/crm/azienda/indirizzo/";
 var wsRicercaAzienda = "/crm/azienda/cerca";
 
 var wsContatto = "/crm/contatto";
 var wsContattiPerAzienda = "/crm/contatto/azienda/";
+var wsContattoIndirizzo = "/crm/contatto/indirizzo/";
 var wsRicercaContatto = "/crm/contatto/cerca";
+
+var wsRecapito = "/crm/recapito";
 
 var wsBrand = "/crm/brand";
 var wsBrandPerAzienda = "/crm/brand/azienda/";
@@ -203,7 +207,7 @@ function ParametriChiamata(url, object, funzioneOk) {
 	this.erroreGenerico = function(response) { mostraMessaggio(messaggioErroreGenerico, this.IDError); };
 	this.nonAutenticato = function() { /*Viene riempito successivamente con la funzione di deautenticazione*/ };
 	this.nonAutorizzato = function() { mostraMessaggio(messaggioPermessiInsufficienti, this.IDError); };
-}
+};
 
 ltcApp.run(function($rootScope, $location, $http) {
 	
@@ -211,6 +215,13 @@ ltcApp.run(function($rootScope, $location, $http) {
 	
 	//Chiude l'alert bootstrap con l'ID html indicato.
 	$rootScope.chiudiAlert = function(IDAlert) { console.log('Chiudi alert'); $("#" + IDAlert).alert("close"); };
+	
+	$rootScope.vaiA = function(path) {
+		if (path != undefined) {
+			$location.path(path);
+			$location.replace();
+		}
+	};
 	
 	//Torna indietro di una pagina
 	$rootScope.tornaIndietro = function() {
@@ -221,19 +232,20 @@ ltcApp.run(function($rootScope, $location, $http) {
 	
 	//Visualizza la pagina di dettaglio con le informazioni dell'oggetto passato come argomento.
 	$rootScope.visualizzaDettaglio = function(item, key, path) {
-		console.log('Oggetto: ');
-		console.log(item);
-		console.log('Chiave: ' + key);
-		console.log('Percorso: ' + path);
+		//console.log('Oggetto: ');
+		//console.log(item);
+		//console.log('Chiave: ' + key);
+		//console.log('Percorso: ' + path);
 		//Se mi è stata passata una chiave su cui andare a memorizzare l'oggetto lo metto nel sessionStorage.
 		if (key != undefined) {
 			sessionStorage.setItem(key, JSON.stringify(item));
 		}
 		//Se mi è stato passato un valore per il nuovo percorso mi ci sposto.
-		if (path != undefined) {
-			$location.path(path);
-			$location.replace();
-		}
+		$rootScope.vaiA(path);
+//		if (path != undefined) {
+//			$location.path(path);
+//			$location.replace();
+//		}
 	}
 	
 	//Imposta lo stato del login.

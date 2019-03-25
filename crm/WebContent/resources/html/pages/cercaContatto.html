@@ -26,21 +26,20 @@
 					<tr class="lista">
 						<th class="lista" data-at-attribute="nome">Nome</th>
 						<th class="lista" data-at-attribute="cognome">Cognome</th>
-						<th class="lista" data-at-attribute="telefono">Telefono</th>
-						<th class="lista" data-at-attribute="email">Email</th>
+						<th class="lista" data-at-attribute="ruolo">Ruolo</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr class="lista" data-ng-click="visualizzaDettaglio(item, 'contatto', '/schedaContatto')">
 						<td class="lista" data-at-attribute="nome" data-at-implicit data-at-sortable></td>
 						<td class="lista" data-at-attribute="cognome" data-at-implicit data-at-sortable></td>
-						<td class="lista" data-at-attribute="telefono" data-at-implicit data-at-sortable></td>
-						<td class="lista" data-at-attribute="email" data-at-implicit data-at-sortable></td>
+						<td class="lista" data-at-attribute="ruolo" data-at-implicit data-at-sortable></td>
 					</tr>
 				</tbody>
 			</table>
 			<at-pagination data-at-list="contatti" data-at-config="configurazioneTabella"></at-pagination>
 			<br /> <br />
+			<button type="button" class="btn bottone" data-ng-click="tornaIndietro()">Indietro</button>
 		</div>
 		<div class="col-sm-3"></div>
 	</div>

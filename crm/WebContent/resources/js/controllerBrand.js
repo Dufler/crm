@@ -56,7 +56,7 @@ ltcApp.controller('cercaBrandController', function($scope, $http, $location, $fi
 	
 	$scope.controllaCredenziali();
 	
-	setCurrentPage('/cercabrand');
+	setCurrentPage('/cercaBrand');
 		
 	mostraElemento(IDFormRicercaBrand);
 	

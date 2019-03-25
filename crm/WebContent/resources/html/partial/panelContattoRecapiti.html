@@ -3,6 +3,87 @@
 <div class="panel panel-default" data-ng-controller="pannelloContattoRecapitiController">
 	<div id="headerPannelloContattoRecapiti" title="Recapiti" class="panel-heading" data-ng-click="caricaRecapiti()">Recapiti</div>
 	<div id="pannelloAziendaContattoRecapiti" class="panel-body collapse">
-	TODO
+		<!-- Trigger the modal with a button -->
+		<button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#modaleAggiungiRecapito">Aggiungi Recapito</button>
+		<br />
+		<!-- Modal -->
+		<div id="modaleAggiungiRecapito" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Aggiungi un recapito per il contatto</h4>
+					</div>
+					<div class="modal-body">
+						<p>Aggiungi un recapito per il contatto.</p>
+						<form name="aggiungiRecapito" novalidate>
+							<div class="input-group">
+								<div class="col-sm-5 form-group">
+									<label for="tipo">Tipo:</label> <select class="form-control" name="tipo" id="tipo" data-ng-model="tipo">
+										<option value="TELEFONO">Telefono</option>
+										<option value="EMAIL">Email</option>
+										<option value="SKYPE">Skype</option>
+										<option value="ALTRO">Altro</option>
+									</select>
+								</div>
+								<div class="col-sm-1"></div>
+								<div class="col-sm-5">
+									<label for="recapito">Recapito :</label> <input type="text" class="form-control" name="recapito" data-ng-model="recapito" placeholder="...">
+								</div>
+								<div class="col-sm-1"></div>
+								<div class="input-group-btn">
+									<button id="bottoneAggiungiRcapito" title="Aggiungi" name="Aggiungi" class="btn btn-default" type="button" data-ng-click="aggiungi()">
+										Aggiungi
+									</button>
+								</div>
+							</div>
+						</form>
+						<br />
+						<div id="boxErroriRecapito" class="alert alert-warning collapse"></div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Chiudi</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Modale conferma eliminazione -->
+		<div id="modaleConfermaEliminazioneRecapito" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Conferma eliminazione recapito</h4>
+					</div>
+					<div class="modal-body">
+						<p>Sei sicuro di voler eliminare il recapito per il contatto?</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal" data-ng-click="elimina()">Si</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br />
+		<table class="lista" data-at-table data-at-paginated data-at-list="recapiti" data-at-config="configurazioneTabella">
+			<thead>
+				<tr class="lista">
+					<th class="lista" data-at-attribute="tipo">Tipo</th>
+					<th class="lista" data-at-attribute="recapito">Recapito</th>
+					<th class="lista" >Elimina</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="lista">
+					<td class="lista" data-at-attribute="tipo" data-at-implicit data-at-sortable></td>
+					<td class="lista" data-at-attribute="recapito" data-at-implicit data-at-sortable></td>
+					<td class="lista"><span data-ng-click="mostraConfermaEliminazione(item)" class="glyphicon glyphicon-trash"></span></td>
+				</tr>
+			</tbody>
+		</table>
+		<at-pagination data-at-list="recapiti" data-at-config="configurazioneTabella"></at-pagination>
 	</div>
 </div>

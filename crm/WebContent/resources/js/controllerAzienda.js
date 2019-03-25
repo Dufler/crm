@@ -62,9 +62,11 @@ var chiaveStorageNotePerAzienda = 'aziendaNote';
 
 var pathSchedaAzienda = '/schedaAzienda';
 
-
 var IDPannelloAziendaTagServizi = 'pannelloAziendaServizi';
 var IDPannelloAziendaTagCategorie = 'pannelloAziendaCategorie';
+
+var IDHeaderPannelloAziendaIndirizzo = 'headerPannelloIndirizzo';
+var IDPannelloAziendaIndirizzo = 'pannelloAziendaIndirizzo';
 
 /**
  * Classe di oggetti che rappresenta un'azienda.
@@ -91,7 +93,7 @@ function Nota(autore, azienda, contatto, note) {
 	this.azienda = azienda,
 	this.contatto = contatto,
 	this.note = note;
-}
+};
 
 ltcApp.controller('nuovaAziendaController', function($scope, $http, $location, $filter) {
 	
@@ -210,7 +212,7 @@ ltcApp.controller('pannelloAziendaContattiController', function($scope, $http, $
 		$scope.contattoSelezionato = contatto;
 		//Mostro un messaggio di conferma, se Ok procedo con l'eliminazione.
 		$("#" + IDModaleConfermaEliminazioneAssociazioneContatto).modal("show");
-	}
+	};
 	
 	$scope.eliminaAssociazione = function() {
 		var associazioneAziendaContatto = {
@@ -229,7 +231,7 @@ ltcApp.controller('pannelloAziendaContattiController', function($scope, $http, $
 		params.IDError = IDBoxErroreAssociazioneAziendaContatti;
 		params.IDInfo = IDBoxInfoAssociazioneAziendaContatti;
 		$scope.chiamataDelete(params);
-	}
+	};
 	
 	$scope.associa = function(contatto) {
 		var associazioneAziendaContatto = {
@@ -249,7 +251,7 @@ ltcApp.controller('pannelloAziendaContattiController', function($scope, $http, $
 		params.IDError = IDBoxErroreAssociazioneAziendaContatti;
 		params.IDInfo = IDBoxInfoAssociazioneAziendaContatti;
 		$scope.chiamataPost(params);
-	}
+	};
 	
 	$scope.contatti = [];
 	
@@ -269,7 +271,8 @@ ltcApp.controller('pannelloAziendaContattiController', function($scope, $http, $
 		params.IDError = IDBoxErroreAssociazioneAziendaContatti;
 		//Eseguo la ricerca
 		$scope.chiamataPost(params);
-	}
+	};
+	
 });
 
 ltcApp.controller('pannelloAziendaBrandController', function($scope, $http, $location, $filter) {
@@ -367,7 +370,8 @@ ltcApp.controller('pannelloAziendaBrandController', function($scope, $http, $loc
 		params.IDError = IDBoxErroreAssociazioneAziendaBrand;
 		//Eseguo la ricerca
 		$scope.chiamataPost(params);
-	}
+	};
+	
 });
 
 ltcApp.controller('pannelloAziendaNoteController', function($scope, $http, $location, $filter) {
@@ -441,38 +445,75 @@ ltcApp.controller('pannelloAziendaNoteController', function($scope, $http, $loca
 		params.IDError = 'boxErroriRicercaContattoNota';
 		$scope.chiamataPost(params);
 	};
-
+	
+	$scope.impostaNote = function() {
+		$scope.noteScritte = $scope.facsimile;
+	}
 
 });
 
 ltcApp.controller('pannelloAziendaIndirizzoController', function($scope, $http, $location, $filter) {
 	
 	$scope.azienda = JSON.parse(sessionStorage.getItem(chiaveStorageAzienda));
+	$scope.indirizzo = undefined; //JSON.parse(sessionStorage.getItem(chiaveStorageIndirizzoAzienda));
+	$scope.province = $scope.getProvince();
+	$scope.nazioni = $scope.getNazioni();
+	
+	sessionStorage.setItem(chiaveStorageMostraIndirizzoAzienda, 'false');
+	sessionStorage.setItem(chiaveStorageCaricamentoIndirizzoAzienda, 'false');
 	
 	$scope.caricaIndirizzo = function() {
 		//Se l'azienda ha un indirizzo e non l'ho ancora caricato lo faccio ora.
 		
-		var url = contextPath + wsBrandPerAzienda + $scope.azienda.id;
+		var url = contextPath + wsAziendaIndirizzo + $scope.azienda.id;
 		var funzioneOk = function(data) {
-			$scope.aziendaBrands = data;
+			$scope.indirizzo = data;
 			sessionStorage.setItem(chiaveStorageIndirizzoAzienda, JSON.stringify(data));
 			sessionStorage.setItem(chiaveStorageCaricamentoIndirizzoAzienda, 'true');
 		};
+		var okParziale = function(response) {
+			//Mostro semplicemente l'indirizzo vuoto.
+			console.log('(Warning) Nessun indirizzo trovato!')
+			$scope.indirizzo = { ragioneSociale : '', indirizzo : '', localita : '', cap : '' };
+		};
+		var fallimento = function(response) {
+			//Mostro semplicemente l'indirizzo vuoto.
+			console.log('(Warning) Nessun indirizzo trovato!')
+			$scope.indirizzo = { ragioneSociale : '', indirizzo : '', localita : '', cap : '' };
+		};
 		var params = new ParametriChiamata(url, undefined, funzioneOk);
-		params.IDLoading = IDHeaderPannelloBrand;
+		params.fallimento = fallimento;
+		params.okParziale = okParziale;
+		params.IDLoading = IDHeaderPannelloAziendaIndirizzo;
 		$scope.chiamataGet(params);
 		//Mostro o nascondo il pannello
 		if (sessionStorage.getItem(chiaveStorageMostraIndirizzoAzienda) == 'true') {
 			sessionStorage.setItem(chiaveStorageMostraIndirizzoAzienda, 'false');
-			$("#" + IDPannelloAziendaBrand).collapse('hide');
+			$("#" + IDPannelloAziendaIndirizzo).collapse('hide');
 		} else {
 			sessionStorage.setItem(chiaveStorageMostraIndirizzoAzienda, 'true');
-			$("#" + IDPannelloAziendaBrand).collapse('show');
+			$("#" + IDPannelloAziendaIndirizzo).collapse('show');
 		}
-	}
+	};
 	
-	$scope.province = $scope.getProvince();
-	$scope.nazioni = $scope.getNazioni();
+	$scope.salva = function() {
+		var url = contextPath + wsAziendaIndirizzo + $scope.azienda.id;
+		var funzioneOk = function(data) {
+			$scope.indirizzo = data;
+			$scope.azienda.indirizzo = $scope.indirizzo.id;
+			sessionStorage.setItem(chiaveStorageAzienda, JSON.stringify($scope.azienda));
+			sessionStorage.setItem(chiaveStorageIndirizzoAzienda, JSON.stringify(data));
+			sessionStorage.setItem(chiaveStorageCaricamentoIndirizzoAzienda, 'true');
+			//Notifico che la modifica è avvenuta con successo.
+			mostraMessaggio(messaggioSalvataggioOk, 'boxInfoAziendaIndirizzo');
+		};
+		var params = new ParametriChiamata(url, $scope.indirizzo, funzioneOk);
+		params.IDInfo = 'boxInfoAziendaIndirizzo';
+		params.IDLoading = 'bottoneSalvaIndirizzo';
+		params.IDError = 'boxInfoAziendaIndirizzo';
+		params.statusCodeSuccesso = 201;
+		$scope.chiamataPost(params);
+	};
 	
 });
 
@@ -631,12 +672,8 @@ ltcApp.controller('pannelloAziendaNotaController', function($scope, $http, $loca
 		$scope.messaggioInfo = '';
 		$scope.messaggioErrore = '';
 	}
-	$scope.resetMessaggi();
 	
-//	$scope.mostraConfermaAggiornamentoNota = function(nota) {
-//		//Mostro un messaggio di conferma, se Ok procedo con l'aggiornamento.
-//		$("#" + IDModaleConfermaAggiornamentoNota + $scope.nota.id).modal("show");
-//	};
+	$scope.resetMessaggi();
 	
 	$scope.aggiornaNota = function() {		
 		$scope.resetMessaggi();

@@ -48,6 +48,33 @@
 						<at-pagination data-at-list="contattiNota" data-at-config="configurazioneTabella"></at-pagination>
 						<p data-ng-show="contattoSelezionato != undefined">Contatto selezionato: {{contattoSelezionato.nome}} {{contattoSelezionato.cognome}}</p>
 						<form name="formDatiNota" novalidate>
+							<div class="row form-group">
+								<div class="col-sm-5 form-group">
+									<label for="facsimile">Fac-simile:</label> <select class="form-control" name="facsimile" id="facsimile" data-ng-model="facsimile">
+										<option value="">...</option>
+										<option value="Inviata mail di presentazione LTC">Mail presentazione</option>
+										<option value="Inviata mail con richiesta incontro">Mail richiesta incontro</option>
+										<option value="Inviata mail con richiesta call">Mail richiesta call</option>
+										<option value="Meeting presso filiale LTC">Meeting</option>
+										<option value="Richiesta dati per elaborazione tariffa">Richiesta dati per tariffa</option>
+										<option value="Contatto di saluto">Saluti</option>
+										<option value="Aggiornamento offerte LTC">Aggiornamento su offerte</option>
+										<option value="Verifica contatti aziendali">Verifica contatti</option>
+										<option value="Inviato messaggio su Linkedin">Messaggio Linkedin</option>
+										<option value="Inviato messaggio di Auguri Natale">Messaggio Natale</option>
+										<option value="Inviato messaggio di Auguri Pasqua">Messaggio Pasqua</option>
+										<option value="Inviato messaggio di Auguri Compleanno">Messaggio Compleanno</option>
+										<option value="Inviato messagio di Buone Ferie">Messaggio Ferie</option>
+										<option value="Inviato messaggio di Buon rientro al Lavoro">Messaggio Rientro</option>
+									</select>
+								</div>
+								<div class="col-sm-1"></div>
+								<div class="col-sm-3">
+									<br>
+									<button id="bottoneFacsimile" title="Aggiungi testo fac simile" name="Aggiungi testo fac simile" type="button" class="btn bottone sinistra" data-ng-click="impostaNote()">Aggiungi testo fac simile</button>
+								</div>
+								<div class="col-sm-3"></div>
+							</div>
 							<div class="input-group col-sm-12">
 								<label for="note">Note:</label>
 								<textarea class="form-control col-sm-12" maxlength="250" form="formDatiNota" name="note" data-ng-model="noteScritte"> </textarea>
@@ -106,7 +133,8 @@
 			<div class="alert alert-error" data-ng-show="mostraErroreNota">{{messaggioErrore}}<span class="close" data-dismiss="alert" aria-label="close" >&times;</span></div>
 <!-- 			<span class="glyphicon glyphicon-pencil" data-ng-click="mostraConfermaAggiornamentoNota(nota)"></span> <span class="glyphicon glyphicon-trash" data-ng-click="mostraConfermaEliminazioneNota(nota)"></span> -->
 			<span class="glyphicon glyphicon-pencil" data-ng-click="aggiornaNota()"></span> <span class="glyphicon glyphicon-trash" data-ng-click="mostraConfermaEliminazioneNota()"></span>
-			<p>Autore: {{nota.autore}}</p>
+			<p>Autore: {{nota.autore}} {{nota.dataFormattata}}</p>
+			<p>Contatto: {{nota.nomeContatto}}</p>
 			<textarea  class="form-control" maxlength="250" form="formDatiNota" name="note" data-ng-model="nota.note"> </textarea>
 		</div>
 	</div>
